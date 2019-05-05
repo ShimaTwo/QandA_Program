@@ -3,12 +3,23 @@
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
+    // メインパネルのアクションリスナー
+    MainPanelActionListener mal = new MainPanelActionListener(this);
+
     // ラジオボタン
     JRadioButton cource1 = new JRadioButton();
     JRadioButton cource2 = new JRadioButton();
     JRadioButton cource3 = new JRadioButton();
+
+    // スタート用ボタン
+    JButton start = new JButton();
+
     public MainPanel (int width, int height) {
         // レイアウトマネージャを無効にする
         this.setLayout(null);
@@ -31,7 +42,7 @@ public class MainPanel extends JPanel {
         group.add(cource2);
         group.add(cource3);
 
-        // ボタンの配置座標指定
+        // ラジオボタンの配置座標指定
         cource1.setBounds(100, 100, 100, 25);
         cource2.setBounds(100, 125, 150, 25);
         cource3.setBounds(100, 150, 150, 25);
@@ -40,5 +51,44 @@ public class MainPanel extends JPanel {
         this.add(cource1);
         this.add(cource2);
         this.add(cource3);
+
+        // スタート用ボタン名前設定
+        start.setText("スタート");
+
+        // スタート用ボタンの配置座標指定
+        start.setBounds(100, 300, 100, 50);
+
+        // スタートボタンにアクションリスナーを追加
+        start.addActionListener(mal);
+
+        // スタートボタンをパネルに追加
+        this.add(start);
+    }
+}
+
+// メインパネルアクションリスナー
+class MainPanelActionListener implements ActionListener {
+    // メインパネル
+    MainPanel mp;
+
+    MainPanelActionListener (MainPanel mainPanel) {
+        mp = mainPanel;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // test print
+        // System.out.println("pushed...");
+        // ラジオボタンのチェックによる条件分岐
+        if (mp.cource1.isSelected() && !mp.cource2.isSelected() && !mp.cource3.isSelected()) {
+            System.out.println("cource1");
+        } else if (!mp.cource1.isSelected() && mp.cource2.isSelected() && !mp.cource3.isSelected()) {
+
+        } else if (!mp.cource1.isSelected() && !mp.cource2.isSelected() && mp.cource3.isSelected()) {
+
+        } else {
+            // ラジオボタンは3つのうち1つだけがアクティブなはずなのでここは実行されない
+            System.out.println("ラジオボタンエラー");
+            System.exit(0);
+        }
     }
 }
