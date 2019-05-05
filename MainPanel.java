@@ -9,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
-    // メインパネルのアクションリスナー
-    MainPanelActionListener mal = new MainPanelActionListener(this);
-
     // ラジオボタン
     JRadioButton cource1 = new JRadioButton();
     JRadioButton cource2 = new JRadioButton();
@@ -20,7 +17,10 @@ public class MainPanel extends JPanel {
     // スタート用ボタン
     JButton start = new JButton();
 
-    public MainPanel (int width, int height) {
+    public MainPanel (int width, int height, MyFrame mf) {
+        // メインパネルのアクションリスナー
+        MainPanelActionListener mal = new MainPanelActionListener(this, mf);
+
         // レイアウトマネージャを無効にする
         this.setLayout(null);
 
@@ -68,27 +68,32 @@ public class MainPanel extends JPanel {
 
 // メインパネルアクションリスナー
 class MainPanelActionListener implements ActionListener {
+    // フレーム
+    MyFrame mf;
     // メインパネル
     MainPanel mp;
 
-    MainPanelActionListener (MainPanel mainPanel) {
+    MainPanelActionListener (MainPanel mainPanel, MyFrame myFrame) {
         mp = mainPanel;
+        mf = myFrame;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         // test print
         // System.out.println("pushed...");
         // ラジオボタンのチェックによる条件分岐
+        int[] questionIndex = null;
         if (mp.cource1.isSelected() && !mp.cource2.isSelected() && !mp.cource3.isSelected()) {
-            System.out.println("cource1");
+            questionIndex = QandA.setQuestionIndexOrder();
         } else if (!mp.cource1.isSelected() && mp.cource2.isSelected() && !mp.cource3.isSelected()) {
-
+            questionIndex = QandA.setQuestionIndexRandom();
         } else if (!mp.cource1.isSelected() && !mp.cource2.isSelected() && mp.cource3.isSelected()) {
-
+            questionIndex = QandA.setQuestionIndexsSampleTen();
         } else {
             // ラジオボタンは3つのうち1つだけがアクティブなはずなのでここは実行されない
             System.out.println("ラジオボタンエラー");
             System.exit(0);
         }
+        mf.beginQuestion(questionIndex);
     }
 }
