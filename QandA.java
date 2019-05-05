@@ -1,9 +1,12 @@
 // 一問一答プログラム
 
+import java.util.Random;
+
 public class QandA {
+    static String[][] QASheet;
     public static void main(String args[]) {
         // 問いと解答のcsvファイルを読み込み
-        String[][] QASheet = CSVFileReader.readCSVSheet("QandA_Sheet.csv");
+        QASheet = CSVFileReader.readCSVSheet("QandA_Sheet.csv");
         // test print
         /*
         for (int i = 0; i < QASheet.length; i++) {
@@ -16,11 +19,59 @@ public class QandA {
         int windowSizeWidth = 1500;
         int windowSizeHeight = 1000;
 
-        MainPanel mp = new MainPanel(windowSizeWidth, windowSizeHeight);
+        // サブパネル 問題画面
+        SubPanel sp[] = new SubPanel[QASheet.length];
+        for (int i = 0; i < QASheet.length; i++) {
+            sp[i] = new SubPanel(windowSizeWidth, windowSizeHeight, QASheet[i]);
+        }
 
-        MyFrame mf = new MyFrame("QandA Program", windowSizeWidth, windowSizeHeight);
+        MyFrame mf = new MyFrame("QandA Program", windowSizeWidth, windowSizeHeight, sp);
         // xを押した場合の処理を設定
         mf.setDefaultCloseOperation(MyFrame.EXIT_ON_CLOSE);
         mf.setVisible(true);
+    }
+
+    // 出題順の配列を、QAシートの順番通りで返す
+    public static int[] setQuestionIndexOrder() {
+        int retArray[] = new int[QASheet.length];
+        for (int i = 0; i < QASheet.length; i++) {
+            retArray[i] = i;
+        }
+        return retArray;
+    }
+
+    // 出題順の配列を、ランダムな順番で返す
+    public static int[] setQuestionIndexRandom() {
+        int retArray[] = new int[QASheet.length];
+        for (int i = 0; i < QASheet.length; i++) {
+            retArray[i] = i;
+        }
+        
+        // 配列並べ替え
+        for (int i = 0; i < retArray.length; i++) {
+            int random = (int) (Math.random() * retArray.length);
+            int tmp = retArray[i];
+            retArray[i] = retArray[random];
+            retArray[random] = tmp;
+        }
+
+        return retArray;
+    }
+
+    // 出題順の配列をランダムに10問選んで返す
+    public static int[] setQuestionIndexsSampleTen() {
+        if (QASheet.length < 10) {
+            System.out.println("QASheet.csvの問が10問以下です");
+            System.exit(0);
+        }
+
+        int retArray[] = new int[10];
+        int randomArray[] = new int[QASheet.length];
+        randomArray = setQuestionIndexRandom();
+        for (int i = 0; i < retArray.length; i++) {
+            retArray[i] = randomArray[i];
+        }
+
+        return retArray;
     }
 }
