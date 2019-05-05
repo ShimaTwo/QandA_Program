@@ -16,16 +16,10 @@ public class QandA {
         }
         */
         // ウィンドウのサイズ
-        int windowSizeWidth = 1500;
-        int windowSizeHeight = 1000;
+        int windowSizeWidth = 750;
+        int windowSizeHeight = 500;
 
-        // サブパネル 問題画面
-        SubPanel sp[] = new SubPanel[QASheet.length];
-        for (int i = 0; i < QASheet.length; i++) {
-            sp[i] = new SubPanel(windowSizeWidth, windowSizeHeight, QASheet[i]);
-        }
-
-        MyFrame mf = new MyFrame("QandA Program", windowSizeWidth, windowSizeHeight, sp);
+        MyFrame mf = new MyFrame("QandA Program", windowSizeWidth, windowSizeHeight, QASheet);
         // xを押した場合の処理を設定
         mf.setDefaultCloseOperation(MyFrame.EXIT_ON_CLOSE);
         mf.setVisible(true);
