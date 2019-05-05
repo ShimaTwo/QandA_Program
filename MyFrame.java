@@ -46,14 +46,18 @@ public class MyFrame extends JFrame implements WindowConstants {
         sp = new SubPanel[index.length];
         for (int i = 0; i < index.length; i++) {
             if (i == index.length-1) {
-                sp[i] = new SubPanel(Width, Height, Sheet[i], -1);
+                sp[i] = new SubPanel(Width, Height, Sheet[index[i]], -1, this);
             } else {
-                sp[i] = new SubPanel(Width, Height, Sheet[i], index[i+1]);
+                sp[i] = new SubPanel(Width, Height, Sheet[index[i]], i+1, this);
             }
             this.add(sp[i]);
             sp[i].setVisible(false);
         }
 
         sp[index[0]].setVisible(true);
+    }
+
+    public void setSubPanelVisible(int index) {
+
     }
 }
