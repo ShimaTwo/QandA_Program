@@ -82,12 +82,16 @@ public class SubPanel extends JPanel {
         }
 
         // 問題文添付画像
-        ImageIcon questionIcon = new ImageIcon(getClass().getResource("image_directory/"+ QALine[3]));
-        // test print
-        // System.out.println("/image_directory/"+ QALine[3]);
-        questionImage.setIcon(questionIcon);
-        questionImage.setBounds(375, 40, 400, 300);
-        this.add(questionImage);
+        if (QALine[3].equals("0")) {
+            // pass
+        } else {
+            ImageIcon questionIcon = new ImageIcon(getClass().getResource("image_directory/"+ QALine[3]));
+            // test print
+            // System.out.println("/image_directory/"+ QALine[3]);
+            questionImage.setIcon(questionIcon);
+            questionImage.setBounds(375, 40, 400, 300);
+            this.add(questionImage);
+        }
 
         // 順不同判定
         perfectOrder = checkParenthesis(QALine[4]);
