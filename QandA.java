@@ -44,10 +44,19 @@ public class QandA {
         // 配列並べ替え
         for (int i = 0; i < retArray.length; i++) {
             int random = (int) (Math.random() * retArray.length);
+            // test print
+            // System.out.println(random);
             int tmp = retArray[i];
             retArray[i] = retArray[random];
             retArray[random] = tmp;
         }
+
+        // test print
+        /*
+        for (int i = 0; i < retArray.length; i++) {
+            System.out.println(retArray[i]);
+        }
+        */
 
         return retArray;
     }

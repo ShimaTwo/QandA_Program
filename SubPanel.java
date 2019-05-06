@@ -99,7 +99,9 @@ public class SubPanel extends JPanel {
         perfectOrder = checkParenthesis(QALine[4]);
 
         // 解答用テキストボックス
-        String[] answerArray = splitToArray(QALine[3]);
+        String[] answerArray = splitToArray(QALine[2]);
+        // test print
+        // System.out.println(QALine[3]);
         answerTextField = new JTextField[answerArray.length];
         answerTextLabel = new JLabel[answerArray.length];
         for (int i = 0; i < answerTextField.length; i++) {
@@ -138,7 +140,7 @@ public class SubPanel extends JPanel {
         } else if (answerLine.substring(0,1).equals("[") && answerLine.substring(answerLine.length()-1,answerLine.length()).equals("]")) {
             String line = answerLine.substring(1, answerLine.length()-1);
             // test print
-            System.out.println(line);
+            // System.out.println(line);
             String[] splitLine = line.split(Pattern.quote("."));
             retArray = splitLine;
         } else {
@@ -147,7 +149,7 @@ public class SubPanel extends JPanel {
         }
         // test print
         for (int i = 0; i < retArray.length; i++) {
-            System.out.println(retArray[i]);
+            // System.out.println(retArray[i]);
         }
         return retArray;
     }
@@ -183,7 +185,7 @@ class SubPanelActionListener implements ActionListener {
         // 順不同が不可の場合
         Boolean correctOrNot = true;
         // test print
-        System.out.println(sp.perfectOrder);
+        // System.out.println(sp.perfectOrder);
         if (sp.perfectOrder == true) {
             for (int i = 0; i < finalAnswer.length; i++) {
                 if (!finalAnswer[i].equals(sp.correctAnswer[i])) {

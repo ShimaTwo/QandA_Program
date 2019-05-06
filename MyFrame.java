@@ -59,9 +59,19 @@ public class MyFrame extends JFrame implements WindowConstants {
 
         // 結果パネル
         rpc = new ResultPanelCorrect[index.length];
+        // test print
+        // System.out.println("index length:"+ index.length);
+        // test print
+        /*
+        for (int i = 0; i < index.length; i++) {
+            System.out.println(index[i]);
+        }
+        */
         for (int i = 0; i < index.length; i++) {
             if (i == index.length-1) {
                 rpc[i] = new ResultPanelCorrect(Width, Height, Sheet[index[i]], i, -1, this);
+                // test print
+                // System.out.println(i +", index:"+ index[i]);
             } else {
                 rpc[i] = new ResultPanelCorrect(Width, Height, Sheet[index[i]], i, i+1, this);
             }
@@ -72,6 +82,12 @@ public class MyFrame extends JFrame implements WindowConstants {
         // indexに従って順番にサブパネルを可視化
         // サブパネル 問題画面
         sp = new SubPanel[index.length];
+        // test print
+        /*
+        for (int i = 0; i < index.length; i++) {
+            System.out.println(index[i]);
+        }
+        */
         for (int i = 0; i < index.length; i++) {
             if (i == index.length-1) {
                 sp[i] = new SubPanel(Width, Height, Sheet[index[i]],i , -1, this);
@@ -82,7 +98,7 @@ public class MyFrame extends JFrame implements WindowConstants {
             sp[i].setVisible(false);
         }
 
-        sp[index[0]].setVisible(true);
+        sp[0].setVisible(true);
     }
 
     public void setResultPanelVisible(Boolean collect, int index) {
