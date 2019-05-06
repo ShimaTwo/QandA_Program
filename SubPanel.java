@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 
+import java.util.regex.Pattern;
+
 public class SubPanel extends JPanel {
     // 改行コード指定
     String br = System.getProperty("line.separator");
@@ -73,10 +75,10 @@ public class SubPanel extends JPanel {
         questionSentence = new JLabel[sentenceArray.length];
         questionSentenceLabel = new JLabel[sentenceArray.length];
         for (int i = 0; i < sentenceArray.length; i++) {
-            questionSentence[i] = new JLabel(sentenceArray[0]);
+            questionSentence[i] = new JLabel(sentenceArray[i]);
             questionSentenceLabel[i] = new JLabel("問"+String.valueOf(i+1));
-            questionSentence[i].setBounds(30, 100+100*i, 375, 75);
-            questionSentenceLabel[i].setBounds(15, 100-100*i, 200, 25);
+            questionSentence[i].setBounds(30, 100+50*i, 375, 75);
+            questionSentenceLabel[i].setBounds(15, 100+50*i, 200, 25);
             this.add(questionSentence[i]);
             this.add(questionSentenceLabel[i]);
         }
@@ -103,8 +105,8 @@ public class SubPanel extends JPanel {
         for (int i = 0; i < answerTextField.length; i++) {
             answerTextField[i] = new JTextField();
             answerTextLabel[i] = new JLabel("回答"+String.valueOf(i+1));
-            answerTextField[i].setBounds(30+150*i, 400, 120, 25);
-            answerTextLabel[i].setBounds(30+150*i, 375, 120, 25);
+            answerTextField[i].setBounds(30+140*i, 400, 120, 25);
+            answerTextLabel[i].setBounds(30+140*i, 375, 120, 25);
             this.add(answerTextField[i]);
             this.add(answerTextLabel[i]);
         }
@@ -125,17 +127,27 @@ public class SubPanel extends JPanel {
     // .(ドット)区切りで文字列配列を返す
     public String[] splitToArray(String answerLine) {
         String[] retArray;
-        if (answerLine.substring(0,0).equals("{") && answerLine.substring(answerLine.length()-1,answerLine.length()-1).equals("}")) {
-            String line = answerLine.substring(1, answerLine.length()-2);
-            String[] splitLine = line.split(".");
+        // test print
+        // System.out.println(answerLine.substring(0,1));
+        if (answerLine.substring(0,1).equals("{") && answerLine.substring(answerLine.length()-1,answerLine.length()).equals("}")) {
+            String line = answerLine.substring(1, answerLine.length()-1);
+            // test print
+            // System.out.println(line);
+            String[] splitLine = line.split(Pattern.quote("."));
             retArray = splitLine;
-        } else if (answerLine.substring(0,0).equals("[") && answerLine.substring(answerLine.length()-1,answerLine.length()-1).equals("]")) {
-            String line = answerLine.substring(1, answerLine.length()-2);
-            String[] splitLine = line.split(".");
+        } else if (answerLine.substring(0,1).equals("[") && answerLine.substring(answerLine.length()-1,answerLine.length()).equals("]")) {
+            String line = answerLine.substring(1, answerLine.length()-1);
+            // test print
+            System.out.println(line);
+            String[] splitLine = line.split(Pattern.quote("."));
             retArray = splitLine;
         } else {
             retArray = new String[1];
             retArray[0] = answerLine;
+        }
+        // test print
+        for (int i = 0; i < retArray.length; i++) {
+            System.out.println(retArray[i]);
         }
         return retArray;
     }
