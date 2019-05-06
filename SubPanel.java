@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.Color;
-
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class SubPanel extends JPanel {
@@ -99,7 +99,7 @@ public class SubPanel extends JPanel {
         perfectOrder = checkParenthesis(QALine[4]);
 
         // 解答用テキストボックス
-        String[] answerArray = splitToArray(QALine[4]);
+        String[] answerArray = splitToArray(QALine[3]);
         answerTextField = new JTextField[answerArray.length];
         answerTextLabel = new JLabel[answerArray.length];
         for (int i = 0; i < answerTextField.length; i++) {
@@ -118,7 +118,7 @@ public class SubPanel extends JPanel {
     // 解答が[]区切りか()区切りかを判定
     public Boolean checkParenthesis(String answerLine) {
         Boolean retBool = true;
-        if (answerLine.substring(0,0).equals("{") && answerLine.substring(answerLine.length()-1,answerLine.length()-1).equals("}")) {
+        if (answerLine.substring(0,1).equals("{") && answerLine.substring(answerLine.length()-1,answerLine.length()).equals("}")) {
             retBool = false;
         }
         return retBool;
@@ -182,6 +182,8 @@ class SubPanelActionListener implements ActionListener {
 
         // 順不同が不可の場合
         Boolean correctOrNot = true;
+        // test print
+        System.out.println(sp.perfectOrder);
         if (sp.perfectOrder == true) {
             for (int i = 0; i < finalAnswer.length; i++) {
                 if (!finalAnswer[i].equals(sp.correctAnswer[i])) {
@@ -191,6 +193,28 @@ class SubPanelActionListener implements ActionListener {
                     correctOrNot = false;
                 }
             }
+        } else {
+            correctOrNot = false;
+            Boolean checkBool[] = new Boolean[finalAnswer.length];
+            ArrayList<Integer> deadIndex = new ArrayList<Integer>();
+            for (int i = 0; i < checkBool.length; i++) {
+                checkBool[i] = false;
+            }
+            for (int i = 0; i < finalAnswer.length; i++) {
+                for (int j = 0; j < sp.correctAnswer.length; j++) {
+                    if (finalAnswer[i].equals(sp.correctAnswer[j]) && deadChecker(j, deadIndex) == true) {
+                        checkBool[i] = true;
+                        deadIndex.add(j);
+                    }
+                }
+            }
+            Boolean allCheck = true;
+            for (int i = 0; i < checkBool.length; i++) {
+                if (checkBool[i]==false){
+                    allCheck = false;
+                }
+            }
+            correctOrNot = allCheck;
         }
 
         if (correctOrNot == true) {
@@ -202,5 +226,16 @@ class SubPanelActionListener implements ActionListener {
             // System.out.println("不正解");
             mf.setResultPanelVisible(false, now);
         }
+    }
+
+    // 重複ありならfalse
+    public Boolean deadChecker(int target, ArrayList<Integer> list) {
+        Boolean retBool = true;
+        for (int i = 0; i < list.size(); i++) {
+            if (target == list.get(i)) {
+                retBool = false;
+            }
+        }
+        return retBool;
     }
 }
