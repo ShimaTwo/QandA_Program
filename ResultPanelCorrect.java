@@ -71,12 +71,16 @@ public class ResultPanelCorrect extends JPanel {
         this.add(questionTitle);
 
         // 問題文添付画像
-        ImageIcon questionIcon = new ImageIcon(getClass().getResource("image_directory/"+ QALine[3]));
-        // test print
-        // System.out.println("/image_directory/"+ QALine[3]);
-        questionImage.setIcon(questionIcon);
-        questionImage.setBounds(375, 40, 400, 300);
-        this.add(questionImage);
+        if (QALine[3].equals("0")) {
+            // pass
+        } else {
+            ImageIcon questionIcon = new ImageIcon(getClass().getResource("image_directory/"+ QALine[3]));
+            // test print
+            // System.out.println("/image_directory/"+ QALine[3]);
+            questionImage.setIcon(questionIcon);
+            questionImage.setBounds(375, 40, 400, 300);
+            this.add(questionImage);
+        }
 
         // 問題文配置設定
         String[] sentenceArray = splitToArray(QALine[2]);

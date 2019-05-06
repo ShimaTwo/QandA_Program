@@ -183,11 +183,11 @@ class SubPanelActionListener implements ActionListener {
 
         if (correctOrNot == true) {
             // test print
-            System.out.println("正解");
+            // System.out.println("正解");
             mf.setResultPanelVisible(true, now);
         } else {
             // test print
-            System.out.println("不正解");
+            // System.out.println("不正解");
             mf.setResultPanelVisible(false, now);
         }
     }

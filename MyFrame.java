@@ -88,7 +88,7 @@ public class MyFrame extends JFrame implements WindowConstants {
     public void setResultPanelVisible(Boolean collect, int index) {
         if (collect == true) {
             // test print
-            System.out.println("visible...");
+            // System.out.println("visible...");
             rpc[index].setVisible(true);
             cp.setVisible(true);
             sp[index].setVisible(false);
