@@ -32,13 +32,13 @@ public class SubPanel extends JPanel {
     JTextField[] answerTextField;
     JLabel[] answerTextLabel;
     // 正解配列
-    String[] collectAnswer;
+    String[] correctAnswer;
     // 順不同orNot(順不同ならfalse)
     Boolean perfectOrder = true;
 
-    public SubPanel (int width, int height, String[] QALine, int nextIndex, MyFrame mf) {
+    public SubPanel (int width, int height, String[] QALine, int nowIndex, int nextIndex, MyFrame mf) {
         // サブパネル用アクションリスナー
-        SubPanelActionListener sal = new SubPanelActionListener(mf, this);
+        SubPanelActionListener sal = new SubPanelActionListener(mf, this, nowIndex, nextIndex);
 
         // パネル設定
         this.setName("SubPanel");
@@ -106,7 +106,7 @@ public class SubPanel extends JPanel {
         }
 
         // 正解の配列
-        collectAnswer = splitToArray(QALine[4]);
+        correctAnswer = splitToArray(QALine[4]);
     }
 
     // 解答が[]区切りか()区切りかを判定
@@ -143,10 +143,16 @@ class SubPanelActionListener implements ActionListener {
     MyFrame mf;
     // サブパネル
     SubPanel sp;
+    // 今のインデックス
+    int now;
+    // 次のインデックス
+    int next;
 
-    SubPanelActionListener (MyFrame myFrame, SubPanel subPanel) {
+    SubPanelActionListener (MyFrame myFrame, SubPanel subPanel, int nowIndex, int nextIndex) {
         mf = myFrame;
         sp = subPanel;
+        now = nowIndex;
+        next = nextIndex;
     }
 
     @Override
@@ -159,24 +165,26 @@ class SubPanelActionListener implements ActionListener {
         }
 
         // 順不同が不可の場合
-        Boolean collectOrNot = true;
+        Boolean correctOrNot = true;
         if (sp.perfectOrder == true) {
             for (int i = 0; i < finalAnswer.length; i++) {
-                if (!finalAnswer[i].equals(sp.collectAnswer[i])) {
+                if (!finalAnswer[i].equals(sp.correctAnswer[i])) {
                     // testprint
-                    System.out.println(finalAnswer[i]);
-                    System.out.println(sp.collectAnswer[i]);
-                    collectOrNot = false;
+                    // System.out.println(finalAnswer[i]);
+                    // System.out.println(sp.correctAnswer[i]);
+                    correctOrNot = false;
                 }
             }
         }
 
-        if (collectOrNot == true) {
+        if (correctOrNot == true) {
             // test print
             System.out.println("正解");
+            mf.setResultPanelVisible(true, now);
         } else {
             // test print
             System.out.println("不正解");
+            mf.setResultPanelVisible(false, now);
         }
     }
 }
