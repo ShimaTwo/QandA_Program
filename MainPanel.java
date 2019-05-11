@@ -4,9 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class MainPanel extends JPanel {
     // ラジオボタン
@@ -16,6 +18,12 @@ public class MainPanel extends JPanel {
 
     // スタート用ボタン
     JButton start = new JButton();
+
+    // 出題形式
+    JLabel form = new JLabel();
+
+    // 題名
+    JLabel title = new JLabel();
 
     public MainPanel (int width, int height, MyFrame mf) {
         // メインパネルのアクションリスナー
@@ -43,20 +51,32 @@ public class MainPanel extends JPanel {
         group.add(cource3);
 
         // ラジオボタンの配置座標指定
-        cource1.setBounds(100, 100, 100, 25);
-        cource2.setBounds(100, 125, 150, 25);
-        cource3.setBounds(100, 150, 150, 25);
+        cource1.setBounds(150, 150, 100, 25);
+        cource2.setBounds(150, 190, 150, 25);
+        cource3.setBounds(150, 230, 150, 25);
 
         // ラジオボタンをパネルに追加
         this.add(cource1);
         this.add(cource2);
         this.add(cource3);
 
+        // 出題形式
+        form.setText("出題形式");
+        form.setBounds(130, 100, 150, 30);
+        form.setFont(new Font("Arias", Font.PLAIN, 24));
+        this.add(form);
+
+        // 題名
+        title.setText("理解度テスト向け一問一答プログラム");
+        title.setBounds(120, 30, 600, 30);
+        title.setFont(new Font("Arias", Font.PLAIN, 28));
+        this.add(title);
+
         // スタート用ボタン名前設定
         start.setText("スタート");
 
         // スタート用ボタンの配置座標指定
-        start.setBounds(100, 300, 100, 50);
+        start.setBounds(50,270, 650, 120);
 
         // スタートボタンにアクションリスナーを追加
         start.addActionListener(mal);
