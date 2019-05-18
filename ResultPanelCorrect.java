@@ -78,7 +78,7 @@ public class ResultPanelCorrect extends JPanel {
         } else {
             ImageIcon questionIcon = new ImageIcon(getClass().getResource("image_directory/"+ QALine[3]));
             // test print
-            // System.out.println("/image_directory/"+ QALine[3]);
+            System.out.println("/image_directory/"+ QALine[3]);
             questionImage.setIcon(questionIcon);
             questionImage.setBounds(375, 40, 400, 300);
             this.add(questionImage);
